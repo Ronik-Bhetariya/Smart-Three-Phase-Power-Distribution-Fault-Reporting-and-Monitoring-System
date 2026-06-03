@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="powerApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Three-Phase Power Distribution System</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
+  </head>
+  <body ng-controller="MainController">
+    <header class="top-header">
+      <div class="container nav-wrap">
+        <h1>Smart Power System</h1>
+        <button class="menu-btn" ng-if="!isAdminRoute()" ng-click="toggleMenu()">Menu</button>
+        <button class="menu-btn admin-menu-btn" ng-if="isAdminRoute()" ng-click="toggleAdminMenu()">☰</button>
+        <nav ng-if="!isAdminRoute()" ng-class="{ open: menuOpen }">
+          <a href="#!/" ng-click="closeMenu()">Home</a>
+          <a href="#!/live-power-status" ng-click="closeMenu()">Live Power Status</a>
+          <a href="#!/report-fault" ng-click="closeMenu()">Report Fault</a>
+          <a href="#!/track-complaint" ng-click="closeMenu()">Track Complaint</a>
+          <a href="#!/pay-bill" ng-click="closeMenu()">Pay Bill</a>
+          <a href="#!/dashboard" ng-click="closeMenu()">Dashboard</a>
+          <a href="#!/admin-login" ng-click="closeMenu()">Admin Login</a>
+          <a href="#!/about" ng-click="closeMenu()">About</a>
+          <a href="#!/contact-us" ng-click="closeMenu()">Contact Us</a>
+        </nav>
+        <div class="admin-top-menu" ng-if="isAdminRoute()" ng-class="{ open: adminMenuOpen }">
+          <button type="button" ng-click="goToAdminSection('admin-power')">Power Control</button>
+          <button type="button" ng-click="goToAdminSection('admin-create-bill')">Create Bill</button>
+          <button type="button" ng-click="goToAdminSection('admin-bills')">All Bills</button>
+          <button type="button" ng-click="goToAdminSection('admin-complaints')">Complaints</button>
+          <button type="button" ng-click="goToAdminSection('admin-faults')">Faults</button>
+          <button type="button" ng-click="adminLogout()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <div class="card" ng-if="message">{{ message }}</div>
+      <div class="card" ng-if="errorMessage" style="border-color: #dc2626; color: #b91c1c">
+        {{ errorMessage }}
+      </div>
+      <div ng-view></div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 Smart Three-Phase Power Distribution Fault Monitoring System</p>
+      </div>
+    </footer>
+
+    <script src="./app/app.js"></script>
+    <script src="./app/services/api.service.js"></script>
+    <script src="./app/controllers/main.controller.js"></script>
+  </body>
+</html>

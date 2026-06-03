@@ -1,0 +1,19 @@
+<section class="card">
+  <h2>Admin Login</h2>
+  
+  <form ng-submit="adminLogin()" class="form-grid">
+    <input type="email" placeholder="Admin Email" ng-model="admin.email" required />
+    <input type="password" placeholder="Password" ng-model="admin.password" required />
+    <button type="submit">Login</button>
+  </form>
+  
+
+  <p class="success-text" ng-if="message">{{ message }}</p>
+  <p class="error-text" ng-if="errorMessage">{{ errorMessage }}</p>
+
+  <div class="mini-card" ng-if="adminResult">
+    <p><strong>Welcome:</strong> {{ adminResult.name }}</p>
+    <p><strong>Email:</strong> {{ adminResult.email }}</p>
+  </div>
+  <p class="hint">Default seed admin: admin@powerboard.com / admin123</p>
+</section>

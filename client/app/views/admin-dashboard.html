@@ -1,0 +1,106 @@
+<section class="card">
+  <h2>Admin Dashboard</h2>
+  <p class="hint">
+    Authority panel for complaints, faults, power decision (ON/OFF), and bill management.
+  </p>
+</section>
+
+<section class="card" id="admin-power" ng-if="$root.adminActiveSection === 'admin-power'">
+  <h3>Power Control (Three-Phase)</h3>
+  <button type="button" ng-click="seedPowerData()">Initialize Power Phases</button>
+  <div class="inline-form">
+    <input type="datetime-local" ng-model="powerSchedule.startTime" />
+    <input type="datetime-local" ng-model="powerSchedule.endTime" />
+    <button type="button" ng-click="applyPowerSchedule()">Apply Time Window</button>
+  </div>
+  <p class="hint">If no phase appears, click Initialize Power Phases once.</p>
+  <p class="hint">In selected time all three phases are ON, outside that time they are OFF.</p>
+  <article class="mini-card" ng-repeat="phase in powerStatuses">
+    <div class="admin-row">
+      <p><strong>Phase:</strong> {{ phase.phase }}</p>
+      <label>
+        State
+        <select ng-model="phase.state">
+          <option value="ON">ON</option>
+          <option value="OFF">OFF</option>
+        </select>
+      </label>
+      <label>
+        Voltage
+        <input type="number" ng-model="phase.voltage" />
+      </label>
+      <label>
+        Frequency
+        <input type="number" ng-model="phase.frequency" />
+      </label>
+      <p><strong>Window:</strong> {{ phase.powerWindow || 'No schedule active' }}</p>
+      <button type="button" ng-click="updatePower(phase)">Save Power Decision</button>
+    </div>
+  </article>
+</section>
+
+<section class="card" id="admin-create-bill" ng-if="$root.adminActiveSection === 'admin-create-bill'">
+  <h3>Create Bill</h3>
+  <form class="form-grid" ng-submit="createBill()">
+    <input type="text" placeholder="Consumer Number" ng-model="newBill.consumerNumber" required />
+    <input type="text" placeholder="Consumer Name" ng-model="newBill.consumerName" required />
+    <input type="number" placeholder="Amount" ng-model="newBill.amount" required />
+    <input type="date" ng-model="newBill.dueDate" required />
+    <input type="text" placeholder="Bill Month (e.g. May 2026)" ng-model="newBill.billMonth" required />
+    <button type="submit">Create New Bill</button>
+  </form>
+</section>
+
+<section class="card" id="admin-bills" ng-if="$root.adminActiveSection === 'admin-bills'">
+  <h3>All Bills</h3>
+  <article class="mini-card" ng-repeat="bill in allBills">
+    <p><strong>Consumer:</strong> {{ bill.consumerName }} ({{ bill.consumerNumber }})</p>
+    <p><strong>Month:</strong> {{ bill.billMonth }} | <strong>Amount:</strong> ₹{{ bill.amount }}</p>
+    <p><strong>Due:</strong> {{ bill.dueDate }} | <strong>Status:</strong> {{ bill.status }}</p>
+    <p ng-if="bill.transactionId"><strong>Transaction:</strong> {{ bill.transactionId }}</p>
+  </article>
+</section>
+
+<section class="card" id="admin-complaints" ng-if="$root.adminActiveSection === 'admin-complaints'">
+  <h3>All Complaints</h3>
+  <article class="mini-card" ng-repeat="complaint in allComplaints">
+    <p><strong>ID:</strong> {{ complaint.complaintId }}</p>
+    <p><strong>Name:</strong> {{ complaint.name }} | <strong>Phone:</strong> {{ complaint.phone }}</p>
+    <p><strong>Type:</strong> {{ complaint.complaintType }}</p>
+    <p><strong>Details:</strong> {{ complaint.details }}</p>
+    <div class="admin-row">
+      <label>
+        Status
+        <select ng-model="complaint.status">
+          <option value="Received">Received</option>
+          <option value="Under Review">Under Review</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+      </label>
+      <input type="text" placeholder="Remarks" ng-model="complaint.remarks" />
+      <button type="button" ng-click="updateComplaintStatus(complaint)">Update Complaint</button>
+    </div>
+  </article>
+</section>
+
+<section class="card" id="admin-faults" ng-if="$root.adminActiveSection === 'admin-faults'">
+  <h3>All Fault Reports</h3>
+  <article class="mini-card" ng-repeat="fault in allFaults">
+    <p><strong>Fault ID:</strong> {{ fault.faultId }}</p>
+    <p><strong>Name:</strong> {{ fault.reporterName }} | <strong>Phone:</strong> {{ fault.phone }}</p>
+    <p><strong>Location:</strong> {{ fault.location }} | <strong>Severity:</strong> {{ fault.severity }}</p>
+    <p><strong>Description:</strong> {{ fault.description }}</p>
+    <div class="admin-row">
+      <label>
+        Status
+        <select ng-model="fault.status">
+          <option value="Reported">Reported</option>
+          <option value="Assigned">Assigned</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+      </label>
+      <button type="button" ng-click="updateFaultStatus(fault)">Update Fault</button>
+    </div>
+  </article>
+</section>

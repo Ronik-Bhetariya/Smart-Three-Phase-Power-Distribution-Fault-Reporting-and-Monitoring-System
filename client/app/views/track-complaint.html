@@ -1,0 +1,25 @@
+<section class="card">
+  <h2>Track Complaint</h2>
+
+  <h3>Register New Complaint</h3>
+  <form ng-submit="submitComplaint()" class="form-grid">
+    <input type="text" placeholder="Name" ng-model="complaintData.name" required />
+    <input type="text" placeholder="Phone" ng-model="complaintData.phone" required />
+    <input type="text" placeholder="Complaint Type" ng-model="complaintData.complaintType" required />
+    <textarea placeholder="Complaint Details" ng-model="complaintData.details" required></textarea>
+    <button type="submit">Submit Complaint</button>
+  </form>
+
+  <h3>Track Existing Complaint</h3>
+  <div class="inline-form">
+    <input type="text" placeholder="Enter Complaint ID" ng-model="complaintId" />
+    <button ng-click="trackComplaint()">Track</button>
+  </div>
+
+  <div class="mini-card" ng-if="complaintResult">
+    <p><strong>ID:</strong> {{ complaintResult.complaintId }}</p>
+    <p><strong>Status:</strong> {{ complaintResult.status }}</p>
+    <p><strong>Type:</strong> {{ complaintResult.complaintType }}</p>
+    <p><strong>Remarks:</strong> {{ complaintResult.remarks || 'No remarks yet' }}</p>
+  </div>
+</section>

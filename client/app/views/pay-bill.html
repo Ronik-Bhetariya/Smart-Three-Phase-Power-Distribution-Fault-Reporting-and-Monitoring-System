@@ -1,0 +1,23 @@
+<section class="card">
+  <h2>Pay Bill</h2>
+  <p class="hint">Use sample numbers: 1002003001 or 1002003002</p>
+  <div class="inline-form">
+    <input
+      type="text"
+      placeholder="Enter Consumer Number"
+      ng-model="consumerNumber"
+    />
+    <button type="button" ng-click="fetchBill()">Fetch Bill</button>
+    <button type="button" ng-click="seedBills()">Create Demo Bills</button>
+  </div>
+
+  <article class="mini-card" ng-if="billData">
+    <p><strong>Name:</strong> {{ billData.consumerName }}</p>
+    <p><strong>Bill Month:</strong> {{ billData.billMonth }}</p>
+    <p><strong>Amount:</strong> ₹{{ billData.amount }}</p>
+    <p><strong>Due Date:</strong> {{ billData.dueDate }}</p>
+    <p><strong>Status:</strong> {{ billData.status }}</p>
+    <p ng-if="billData.transactionId"><strong>Transaction:</strong> {{ billData.transactionId }}</p>
+    <button ng-if="billData.status === 'Pending'" ng-click="payBill()">Pay Now</button>
+  </article>
+</section>

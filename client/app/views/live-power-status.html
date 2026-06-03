@@ -1,0 +1,15 @@
+<section class="card">
+  <h2>Live Power Status</h2>
+  <p class="hint">Current three-phase power supply details</p>
+  <div class="grid-3">
+    <article class="mini-card" ng-repeat="phase in powerStatuses">
+      <h3>Phase {{ phase.phase }}</h3>
+      <p><strong>Status:</strong> <span ng-class="phase.state">{{ phase.state }}</span></p>
+      <p><strong>Voltage:</strong> {{ phase.voltage }} V</p>
+      <p><strong>Frequency:</strong> {{ phase.frequency }} Hz</p>
+      <p><strong>Power Time:</strong> {{ phase.powerWindow || 'No schedule active' }}</p>
+      <p ng-if="phase.state === 'OFF'" class="error-text">{{ phase.faultMessage }}</p>
+      <p ng-if="phase.state === 'ON'" class="success-text">{{ phase.faultMessage }}</p>
+    </article>
+  </div>
+</section>

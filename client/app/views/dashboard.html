@@ -1,0 +1,21 @@
+<section class="card">
+  <h2>Dashboard</h2>
+  <div class="grid-4">
+    <div class="mini-card">
+      <h3>Open Faults</h3>
+      <p class="metric">{{ dashboard.openFaults || 0 }}</p>
+    </div>
+    <div class="mini-card">
+      <h3>Open Complaints</h3>
+      <p class="metric">{{ dashboard.openComplaints || 0 }}</p>
+    </div>
+    <div class="mini-card">
+      <h3>Pending Bills</h3>
+      <p class="metric">{{ dashboard.pendingBills || 0 }}</p>
+    </div>
+    <div class="mini-card">
+      <h3>Power OFF Phases</h3>
+      <p class="metric">{{ dashboard.powerOffPhases || 0 }}</p>
+    </div>
+  </div>
+</section>

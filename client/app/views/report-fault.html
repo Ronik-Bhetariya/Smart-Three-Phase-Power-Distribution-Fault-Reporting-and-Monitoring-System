@@ -1,0 +1,40 @@
+<section class="card">
+  <h2>Report Fault</h2>
+  <form ng-submit="submitFault()" class="form-grid">
+    <input type="text" placeholder="Your Name" ng-model="faultData.reporterName" required />
+    <input type="text" placeholder="Phone Number" ng-model="faultData.phone" required />
+    <input type="text" placeholder="Fault Location" ng-model="faultData.location" required />
+    <input type="url" placeholder="Image URL (optional)" ng-model="faultData.imageUrl" />
+    <select ng-model="faultData.severity">
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+      <option>Critical</option>
+    </select>
+    <textarea placeholder="Fault Description" ng-model="faultData.description" required></textarea>
+    <button type="submit">Submit Fault</button>
+  </form>
+
+  <div class="mini-card" ng-if="lastFault">
+    <p><strong>Complaint ID:</strong> {{ lastFault.faultId }}</p>
+    <p><strong>Status:</strong> {{ lastFault.status }}</p>
+    <p class="hint">Save this complaint ID to check status later.</p>
+  </div>
+
+  <h3>Track Fault</h3>
+  <p class="hint">Track using Fault ID or phone number</p>
+  <div class="inline-form">
+    <input type="text" placeholder="Fault ID (e.g. FLT-123456-789)" ng-model="faultTrack.faultId" />
+    <input type="text" placeholder="Or Phone Number" ng-model="faultTrack.phone" />
+    <button type="button" ng-click="trackFault()">Track Fault</button>
+  </div>
+
+  <article class="mini-card" ng-repeat="fault in faultTrackResults">
+    <p><strong>Track ID:</strong> {{ fault.faultId }}</p>
+    <p><strong>Name:</strong> {{ fault.reporterName }}</p>
+    <p><strong>Phone:</strong> {{ fault.phone }}</p>
+    <p><strong>Location:</strong> {{ fault.location }}</p>
+    <p><strong>Severity:</strong> {{ fault.severity }}</p>
+    <p><strong>Status:</strong> {{ fault.status }}</p>
+  </article>
+</section>
